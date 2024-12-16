@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "anthropic"
-require "pry"
 
 # Matches wallpapers metadata with a given theme
 class ThemeMatcher
