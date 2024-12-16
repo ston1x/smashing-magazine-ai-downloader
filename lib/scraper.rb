@@ -23,8 +23,6 @@ class Scraper
   private
 
   def fetch_page
-    month_word = Date::MONTHNAMES[@month.to_i].downcase
-    url = "#{BASE_URL}/#{year}/#{format("%02d", (month.to_i - 1))}/desktop-wallpaper-calendars-#{month_word}-#{year}/"
 
     HTTParty.get(url).body
   rescue StandardError => e
@@ -48,5 +46,18 @@ class Scraper
 
       Wallpaper.new(id, description, urls)
     end.compact
+  end
+
+  def url
+    @url ||= begin
+      # Create a Date object for the first day of the target month
+      target_date = Date.new(year.to_i, month.to_i, 1)
+      # Subtract one month to get the publication date
+      pub_date = target_date << 1 # << subtract 1 month
+
+      month_word = Date::MONTHNAMES[month.to_i].downcase
+
+      "#{BASE_URL}/#{pub_date.year}/%02d/desktop-wallpaper-calendars-#{month_word}-#{year}/" % pub_date.month
+    end
   end
 end
