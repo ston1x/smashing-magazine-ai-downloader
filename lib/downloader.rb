@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 # Downloads wallpapers from the provided wallpapers metadata
 class Downloader
   WALLPAPERS_RELATIVE_PATH = "wallpapers"
