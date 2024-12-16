@@ -6,6 +6,6 @@ source "https://rubygems.org"
 
 gem "anthropic"
 gem "dotenv"
-gem "faraday"
+gem "httparty"
 gem "nokogiri"
 gem "rubocop-shopify", require: false
