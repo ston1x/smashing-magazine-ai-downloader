@@ -25,8 +25,8 @@ class ThemeMatcher
         model: "claude-3-haiku-20240307",
         max_tokens: 1024,
         temperature: 0,
-        system: "You are a helpful assistant that matches themes to wallpapers. Always respond with just a JSON array.",
         messages: [{ role: "user", content: prompt }],
+        system: "You are a reliable theme matcher that only returns exact, explicit matches. Always respond with just a JSON array.",
       },
     )
     matching_ids = JSON.parse(response["content"].first["text"])
@@ -43,20 +43,19 @@ class ThemeMatcher
 
       Theme to match: #{theme}
 
-      Please analyze each wallpaper and determine if it matches the theme "#{theme}".
+      Please analyze each wallpaper and determine if it explicitly matches the theme "#{theme}".
+      Be strict - only return wallpapers that are related to the theme and/or mention it.
+
+      For example, for theme "birds":
+      - YES: wallpapers showing birds, nests, or bird-related imagery
+      - YES: general nature scenes that have birds somewhere
+      - NO: other flying creatures like insects
+      - NO: thematically similar but not actually bird-related content
 
       Return only a JSON array of matching wallpaper IDs, like this:
       ["wallpaper_id_1", "wallpaper_id_2", "wallpaper_id_3"]
 
       If none of the wallpapers match the theme, return an empty array: []
-
-      Consider both direct matches and thematic connections. For example:
-      - Theme "nature": landscapes, weather, plants, and animals would all match
-      - Theme "architecture": buildings, cities, bridges, and structural patterns would match
-      - Theme "animals": any wildlife, pets, or animal-related imagery would match
-      - Theme "technology": computers, circuits, digital art
-      - Theme "food": cooking, ingredients, meals, kitchen items
-      and so on.
 
       Below are the wallpapers to analyze:
       #{wallpapers_data}
