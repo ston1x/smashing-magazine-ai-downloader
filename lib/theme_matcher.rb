@@ -26,7 +26,8 @@ class ThemeMatcher
         max_tokens: 1024,
         temperature: 0,
         messages: [{ role: "user", content: prompt }],
-        system: "You are a reliable theme matcher that only returns exact, explicit matches. Always respond with just a JSON array.",
+        system: "You are a reliable theme matcher that only returns exact, explicit matches.\
+        Always respond with just a JSON array.",
       },
     )
     matching_ids = JSON.parse(response["content"].first["text"])

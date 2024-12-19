@@ -23,7 +23,6 @@ class Scraper
   private
 
   def fetch_page
-
     HTTParty.get(url).body
   rescue StandardError => e
     puts "Failed to fetch page: #{e.message}"
@@ -57,7 +56,7 @@ class Scraper
 
       month_word = Date::MONTHNAMES[month.to_i].downcase
 
-      "#{BASE_URL}/#{pub_date.year}/%02d/desktop-wallpaper-calendars-#{month_word}-#{year}/" % pub_date.month
+      format("#{BASE_URL}/#{pub_date.year}/%02d/desktop-wallpaper-calendars-#{month_word}-#{year}/", pub_date.month)
     end
   end
 end
